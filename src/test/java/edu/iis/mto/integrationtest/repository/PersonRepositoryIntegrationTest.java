@@ -34,7 +34,15 @@ public class PersonRepositoryIntegrationTest extends IntegrationTest {
 		assertEquals("Mancini", personRepository.findOne(count + 1)
 				.getLastName());
 	}
-
+	@Test
+	@DirtiesContext
+	public void testDeletesAllPeople(){
+		long count = personRepository.count();
+		personRepository.deleteAll();
+		count = personRepository.count();
+		assertEquals(0,count);
+	}
+	
 	private Person a(PersonBuilder builder) {
 		return builder.build();
 	}
